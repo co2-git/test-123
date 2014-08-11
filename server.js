@@ -36,4 +36,4 @@ app
 
   .error()
 
-  .listen(3012);
+  .listen(process.env.PORT || 3012);
