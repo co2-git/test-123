@@ -4,7 +4,7 @@ if ( ! process.send ) {
   process.send = console.log;
 }
 
-var pronto = require('../../pronto');
+var pronto = require('prontojs');
 
 var app = pronto('jade', 'cookies');
 
