@@ -10,5 +10,17 @@
   "license": "ISC",
   "engines": {
     "node": "0.10.x"
+  },
+  "dependencies": {
+    "MD5": "^1.2.1",
+    "connect": "^3.1.1",
+    "request": "^2.40.0",
+    "xml2js": "^0.4.4"
+  },
+  "config": {
+    "search123": {
+      "aid": 14552,
+      "market": "de"
+    }
   }
 }

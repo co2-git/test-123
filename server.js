@@ -1,2 +1,39 @@
-#!/usr/bin/env nodde
-console.log('Hello I am a server');
+#!/usr/bin/env node
+
+if ( ! process.send ) {
+  process.send = console.log;
+}
+
+var pronto = require('../../pronto');
+
+var app = pronto('jade', 'cookies');
+
+// app.views('jade');
+
+/**
+ *  ## Router Site Map
+ *
+ *  └── /
+ *      ├── posts/
+ *      │   ├── edit
+ *      │   ├── language/:language
+ *      │   ├── tags/:tag
+ *      │   └── :id/
+ *      │       └── edit
+ *      └── sign/
+ *          ├── in
+ *          └── out
+ *  
+ */
+
+app
+  .rewrite('?q',      '/search')
+
+  .render('/',        'pages/home')
+
+  .render('/search',  require('./routes/search').bind(app),
+                      'pages/results')
+
+  .error()
+
+  .listen(3012);
