@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+@import
+"../../bower_components/foundation/scss/normalize",
+"../../bower_components/foundation/scss/foundation/components/type",
+"../../bower_components/foundation/scss/foundation/components/buttons",
+"../../bower_components/foundation/scss/foundation/components/inline-lists",
+"../../bower_components/foundation/scss/foundation/components/grid";
+
+form[name="search"] {
+  padding: 150px 100px;
+
+  input[name="q"] {
+    width: 100%
+  }
+
+  .buttons {
+    padding: 10px
+  }
+}
+
+.result {
+  h6 {
+    color: green
+  }
+}
+
+footer {
+  a {
+    margin: 4px 12px;
+    font-size: rem-calc(12)
+  }
+}

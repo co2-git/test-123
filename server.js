@@ -6,7 +6,7 @@ if ( ! process.send ) {
 
 var pronto = require('prontojs');
 
-var app = pronto('jade', 'cookies');
+var app = pronto('front-end', 'cookies', 'req-to-locals');
 
 // app.views('jade');
 

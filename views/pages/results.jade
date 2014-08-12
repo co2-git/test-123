@@ -1,1 +1,20 @@
-h1 RESULTS
+extends ../layouts/layout
+
+block page
+  .row
+    .columns.small-12
+      form(name='search2')
+        input(type='text' value=req.query.q)
+        button.tiny Search
+
+  - each ad in results.response.sponsored[0].ads[0].ad
+    .row.result
+      .columns.small-12
+        
+        h5
+          a(href=ad.url[0])
+            | !{ad.title}
+        
+        h6='http://' + ad.display_url[0]
+
+        p=ad.description[0]

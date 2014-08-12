@@ -1,1 +1,16 @@
-h1 HOME
+extends ../layouts/layout
+
+block page
+  form(method='GET' name='search')
+    .row
+      .columns.small-12.text-center
+        h1
+          small FoxySearch
+
+    .row
+      .columns.small-10.small-centered.medium-8.medium-centered
+        input(type='text' placeholder='Search' name='q' autofocus)
+
+    .row
+      .buttons.columns.small-10.small-centered.medium-8.medium-centered.text-center
+        button.secondary.tiny.radius Search
