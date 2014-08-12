@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node npm_config_port=3012 server"
+    "start": "node npm_config_port=3012 server",
+    "postinstall": "cd public && ../node_modules/bower/bin/bower install"
   },
   "author": "",
   "license": "ISC",
