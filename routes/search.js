@@ -11,6 +11,8 @@ var format = require('util').format;
 
 module.exports = function (req, res, next) {
 
+  return res.json(req.ips);
+
   // If no query string, skip to next middleware
 
   if ( typeof req.query.q !== 'string' ) {
