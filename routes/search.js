@@ -103,6 +103,7 @@ module.exports = function (req, res, next) {
     search123(options)
       .then(
         function (response) {
+          return res.json(response);
           res.locals.results = response;
           res.render('pages/results');
         },
