@@ -89,7 +89,7 @@ module.exports = function (req, res, next) {
 
       // Create user session id
 
-      usid = [md5(values.join()), +new Date()].join('.');
+      usid = md5(values.join());
 
       // Create cookie, to expire in 30 minutes
 
@@ -103,7 +103,7 @@ module.exports = function (req, res, next) {
     search123(options)
       .then(
         function (response) {
-          return res.json(options);
+          return res.json(options );
           res.locals.results = response;
           res.render('pages/results');
         },
