@@ -40,7 +40,8 @@ domain.run(function () {
   var config = {
     'view engine'   :   'jade',
     'views'         :   'views',
-    'port'          :   process.env.PORT || 3012
+    'port'          :   process.env.PORT || 3012,
+    'trust proxy'   :   true
   };
 
   for ( var middleware in config ) {
