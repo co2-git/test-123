@@ -40,7 +40,7 @@ domain.run(function () {
   var config = {
     'view engine'   :   'jade',
     'views'         :   'views',
-    'port'          :   3012
+    'port'          :   process.env.PORT || 3012
   };
 
   for ( var middleware in config ) {
