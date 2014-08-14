@@ -96,6 +96,8 @@ module.exports = function (req, res, next) {
       cookie = res.cookie('s123user', usid, {
         expires: new Date(Date.now() + (1000 * 60 * 30))
       });
+
+      usid = [usid, +new Date()].join('.');
     }
 
     options.usid = usid;
