@@ -11,8 +11,6 @@ var format = require('util').format;
 
 module.exports = function (req, res, next) {
 
-  return res.json(req.ips);
-
   // If no query string, skip to next middleware
 
   if ( typeof req.query.q !== 'string' ) {
@@ -43,7 +41,9 @@ module.exports = function (req, res, next) {
 
     options.query = req.query.q;
 
-    options.ip = req.ip;
+    var ips = req.ips;
+
+    options.ip = ips.length ? ips.pop() : req.ip;
 
     options.uid = 's123_' + Math.random();
 
