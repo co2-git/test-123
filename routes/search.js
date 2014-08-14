@@ -43,7 +43,7 @@ module.exports = function (req, res, next) {
 
     options.ip = req.ip;
 
-    options.uid = 's123_' + options.aid;
+    options.uid = 's123_' + Math.random();
 
     options.client_ref = format('%s?%s',
       
