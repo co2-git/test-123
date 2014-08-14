@@ -49,7 +49,7 @@ module.exports = function (req, res, next) {
       
       require('url').format({
         protocol: req.protocol,
-        hostname: req.host,
+        hostname: req.hostname,
         port: app.get('port')
       }),
 
@@ -108,7 +108,7 @@ module.exports = function (req, res, next) {
         },
 
         function (error) {
-          throw error;
+          next(error);
         });
 
   });
