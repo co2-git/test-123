@@ -84,8 +84,8 @@ module.exports = function (req, res, next) {
       // The values to be encrypted
 
       var values = [
-        require('../package.json').config.search123.aid,
-        req.ip,
+        options.aid,
+        options.ip,
         +new Date(),
         req.get('User-Agent')];
 
