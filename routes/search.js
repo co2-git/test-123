@@ -1,54 +1,85 @@
+/**
+ *    SEARCH ROUTE
+ *    ============
+ *
+ *    This is the middleware that connects to the search123 API and renders the results page consequently
+ *
+ *    Questions to Francois <francoisrvespa@gmail.com>
+ */
+
+var format = require('util').format;
+
 module.exports = function (req, res, next) {
+
+  // If no query string, skip to next middleware
+
+  if ( typeof req.query.q !== 'string' ) {
+    return next();
+  }
+
+  // The express app
 
   var app = this;
 
+  /* ======== domain ceremony  ======== */
+
   var domain = require('domain').create();
+
+  // On domain errors, call next() with error so error is picked up by error manager middlewares
 
   domain.on('error', function (error) {
     next(error);
   });
 
+  // Run domain code
+
   domain.run(function () {
-    var request = require('request');
 
-    var url = 'http://cgi.search123.uk.com/xmlfeed?';
+    var search123 = require('search123');
 
-    var urlOptions = require('../package.json').config.search123;
+    var options = require('../package.json').config.search123;
 
-    urlOptions.query = req.query.q;
+    options.query = req.query.q;
 
-    urlOptions.ip = req.ip;
+    options.ip = req.ip;
 
-    urlOptions.organic_start = '0';
-    urlOptions.organic_size = '10';
-    urlOptions.start = '0';
-    urlOptions.size = '20';
+    options.uid = 's123_' + options.aid;
 
+    options.client_ref = format('%s?%s',
+      
+      require('url').format({
+        protocol: req.protocol,
+        hostname: req.host,
+        port: app.get('port')
+      }),
 
+      require('querystring').stringify(req.query));
 
-    urlOptions.uid = 's123_' + process.pid;
+    options.client_ua = req.get('User-Agent');
 
-    urlOptions.client_ref = require('url').format({
-      protocol: req.protocol,
-      hostname: req.host,
-      port: app.get('port')
-    });
-
-    urlOptions.client_ref += '?' + require('querystring').stringify(req.query);
-
-    urlOptions.client_ref = encodeURIComponent(urlOptions.client_ref);
-
-    urlOptions.client_ua = encodeURIComponent(req.get('User-Agent'));
+    // The cookie
 
     var cookie = req.cookies.s123user;
+
+    // The user session id, to be retrieved from cookie
+
     var usid;
+
+    // If cookie exists, retrieve user session id from it
 
     if ( cookie ) {
       usid = [req.cookies.s123user, +new Date()].join('.');
     }
 
+    // If cookie does not exist, create it
+
     else {
+
+      // Use MD5 to encrypt cookie
+
       var md5 = require('MD5');
+
+      // The values to be encrypted
 
       var values = [
         require('../package.json').config.search123.aid,
@@ -56,39 +87,29 @@ module.exports = function (req, res, next) {
         +new Date(),
         req.get('User-Agent')];
 
+      // Create user session id
+
       usid = [md5(values.join()), +new Date()].join('.');
 
+      // Create cookie, to expire in 30 minutes
+
       cookie = res.cookie('s123user', usid, {
-        expires: new Date(Date.now() + (10000 * 60 * 30))
+        expires: new Date(Date.now() + (1000 * 60 * 30))
       });
     }
 
-    urlOptions.usid = usid;
+    options.usid = usid;
 
-    // return res.json(urlOptions);
+    search123(options)
+      .then(
+        function (response) {
+          res.locals.results = response;
+          res.render('pages/results');
+        },
 
-    var urlParameters = [];
+        function (error) {
+          throw error;
+        });
 
-    for ( var option in urlOptions ) {
-      urlParameters.push(require('util').format('%s=%s', option, urlOptions[option]));
-    }
-
-    url += urlParameters.join('&');
-
-    // return res.send(url);
-
-    request(url, function (error, response, body) {
-      if ( error ) {
-        return next(error);
-      }
-      var parseString = require('xml2js').parseString;
-      parseString(body, function (err, result) {
-        if ( err ) {
-          return next(err);
-        }
-        res.locals.results = result;
-        next();
-      });
-    });
   });
 };

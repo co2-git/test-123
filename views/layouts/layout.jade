@@ -1,28 +1,20 @@
+//-
+  -    LAYOUT
+  -    ======
+  -
+  -    Main layout
+  -
+  -    Questions to Francois <francoisrvespa@gmail.com>
+//-
+
+//- HTML5 
 doctype html
 
 //- Head
-block meta
-  include ../partials/head
+include ../partials/head
 
 //- Page
-
-section(role='main')
-
-  // Contenu principal
-  
-  block page
+block page
 
 //- Footer
-
 include ../partials/footer
-
-//- Scripts
-block scripts
-  script(src='/bower_components/jquery/dist/jquery.min.js')
-  script(src='/cdn/js/foundation.min.js')
-  - if ( settings.env === 'production' )
-    script(src='/cdn/js/google-map-searchbox.min.js')
-    script(src='/cdn/js/app.min.js')
-  - else
-    script(src='/js/google-map-searchbox.js')
-    script(src='/cdn/js/app.js')

@@ -1,6 +1,17 @@
+//-
+  -    HOME PAGE
+  -    =========
+  -
+  -    Home page view
+  -
+  -    Questions to Francois <francoisrvespa@gmail.com>
+//-
+
+//- Use layout
 extends ../layouts/layout
 
 block page
+  //- Search form
   form(method='GET' name='search')
     .row
       .columns.small-12.text-center
@@ -9,8 +20,10 @@ block page
 
     .row
       .columns.small-10.small-centered.medium-8.medium-centered
+        //- Search input
         input(type='text' placeholder='Search' name='q' autofocus)
 
     .row
       .buttons.columns.small-10.small-centered.medium-8.medium-centered.text-center
+        //- Submit search button
         button.secondary.tiny.radius Search

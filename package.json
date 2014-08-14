@@ -8,23 +8,33 @@
     "start": "node npm_config_port=3012 server",
     "postinstall": "cd public && ../node_modules/bower/bin/bower install"
   },
-  "author": "",
+  "author": "francoisv <francoisrvespa@gmail.com>",
   "license": "ISC",
   "engines": {
     "node": "0.10.x"
   },
   "dependencies": {
     "MD5": "^1.2.1",
+    "bower": "^1.3.9",
     "connect": "^3.1.1",
-    "prontojs": "git+https://github.com/co2-git/pronto.git#v0.0.5",
-    "request": "^2.40.0",
-    "xml2js": "^0.4.4",
-    "bower": "1.3.9"
+    "cookie-parser": "^1.3.2",
+    "search123": "0.0.1"
   },
   "config": {
     "search123": {
-      "aid": 14552,
-      "market": "de"
-    }
+      "aid": "14552",
+      "market": "de",
+      "organic_start": 0,
+      "organic_size": 10,
+      "start": 0,
+      "size": 20
+    },
+    "contributors": [
+      {
+        "name": "Francois Vespa",
+        "email": "francoisrvespa@gmail.com",
+        "version": "0.0.*"
+      }
+    ]
   }
 }

@@ -1,20 +1,36 @@
+//-
+  -    RESULTS PAGE
+  -    ============
+  -
+  -    Results page view
+  -
+  -    Questions to Francois <francoisrvespa@gmail.com>
+//-
+
+//- Use layout
 extends ../layouts/layout
 
 block page
   .row
     .columns.small-12
+      //- The search form
       form(name='search2')
         input(type='text' value=req.query.q)
         button.tiny Search
 
-  - each ad in results.response.sponsored[0].ads[0].ad
+  //- For each results
+  - each listing in results.organic.listings
     .row.result
       .columns.small-12
         
+        //- The clickable title
         h5
-          a(href=ad.url[0])
-            | !{ad.title}
+          a(href=listing.url)
+            | !{listing.title}
         
-        h6='http://' + ad.display_url[0]
+        //- The display URL
+        h6='http://' + listing.display_url
 
-        p=ad.description[0]
+        //- The description
+        p
+          | !{listing.description}
