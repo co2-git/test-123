@@ -18,19 +18,25 @@ block page
         input(type='text' value=req.query.q)
         button.tiny Search
 
-  //- For each results
-  - each listing in results.organic.listings
-    .row.result
+  - if ( ! results.organic || ! results.organic.listings )
+    .row
       .columns.small-12
-        
-        //- The clickable title
-        h5
-          a(href=listing.url)
-            | !{listing.title}
-        
-        //- The display URL
-        h6='http://' + listing.display_url
+        h4 Nothing to show
 
-        //- The description
-        p
-          | !{listing.description}
+  - else
+    //- For each results
+    - each listing in results.organic.listings
+      .row.result
+        .columns.small-12
+          
+          //- The clickable title
+          h5
+            a(href=listing.url)
+              | !{listing.title}
+          
+          //- The display URL
+          h6='http://' + listing.display_url
+
+          //- The description
+          p
+            | !{listing.description}
