@@ -104,10 +104,11 @@ module.exports = function (req, res, next) {
 
     search123(options)
       .then(
-        function (response) {
+        function (response, xml) {
           return res.json({
             options: options,
-            results: response
+            results: response,
+            xml: xml
           });
           res.locals.results = response;
           res.render('pages/results');
